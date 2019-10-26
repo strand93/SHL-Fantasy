@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Player = require('../models/player');
+var mongoose = require('mongoose');
 
 /****************
  ******GET*******
@@ -63,5 +64,34 @@ router.delete('/', function(req, res, next){
         res.json(players);
     })
 });
+
+
+/****************
+ ******EDIT******
+ ****************/
+
+//PATCH one player
+
+router.patch('/:id', function(req, res, next) {
+    var id = req.params.id;
+    if( !mongoose.Types.ObjectId.isValid(id) ){
+        return res.status(404).json({message: "Player not found"}); // They didn't send an object ID
+    }
+    Player.findById({_id: id}, function(err, player) {
+        if (err) { return next(err); }
+        if (player === null) {
+            return res.status(404).json({'message': 'Player not found'});
+        }
+        player.name = (req.body.name || player.name);
+        player.number = (req.body.number || player.number);
+        player.team = (req.body.team || player.team);
+        player.position = (req.body.position || player.position);
+        player.value = (req.body.value || player.value);
+        player.save();
+        res.json(player);
+    });
+});
+
+
 
 module.exports = router;
