@@ -12,7 +12,7 @@ var playersController = require('./controllers/players');
 var teamsController = require('./controllers/teams')
 
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/shlFantasy';
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
