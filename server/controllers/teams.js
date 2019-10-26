@@ -56,4 +56,12 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
+//Delete all teams
+router.delete('/', function(req, res, next){
+    Team.find().deleteMany().exec(function(err, teams) {
+        if (err) { return next(err); }
+        res.json(teams);
+    })
+});
+
 module.exports = router;

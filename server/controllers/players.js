@@ -56,4 +56,12 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
+//Delete all players
+router.delete('/', function(req, res, next){
+    Player.find().deleteMany().exec(function(err, players) {
+        if (err) { return next(err); }
+        res.json(players);
+    })
+});
+
 module.exports = router;
