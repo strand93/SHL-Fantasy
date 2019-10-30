@@ -9,10 +9,55 @@ var mongoose = require('mongoose');
 
 // Return a list of all players
 router.get('/', function(req, res, next) {
+    var team = req.query.team;
+    var sort = req.query.sort;
+
+    if(team||sort){next(); return};
+
     Player.find(function(err, players) {
         if (err) { return next(err); }
         res.json({'players': players});
     });
+});
+
+//Return a list of all players for a specific team
+router.get('/', function(req, res, next) {
+    var team = req.query.team;
+    var sort = req.query.sort;
+    
+    if(sort){next(); return};
+
+    Player.find({'team' : team})
+    .exec(function(err, players) {
+        if (err) { return next(err); }
+        if(!players.length){
+            var message = "No players found for team " + team;
+            return res.status(404).json({'message': message}); 
+        }
+        res.json({'players': players});
+    });
+});
+
+// Return a list of all players sorted by team
+router.get('/', function(req, res, next) {
+    var sort = req.query.sort;
+    var sortBy = sort.slice(1);
+    if(sortBy == "value" && sort.charAt(0) == '-'){
+        Player.find().sort({'value' : -1})
+        .exec(function(err, players) {
+            if (err) { return next(err); }
+            res.json({'players': players});
+        });
+    }else if(sortBy == "value"){
+        Player.find().sort({'value' : 1})
+        .exec(function(err, players) {
+            if (err) { return next(err); }
+            res.json({'players': players});
+        });
+    }else{
+        var message = "Sort by " + sort + " not possible."
+        res.status(404).send({'message' : message});
+    }
 });
 
 // Return the player with the given ID

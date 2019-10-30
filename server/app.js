@@ -7,7 +7,6 @@ var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
 //Controllers
-var camelsController = require('./controllers/camels');
 var playersController = require('./controllers/players');
 var teamsController = require('./controllers/teams')
 
@@ -41,7 +40,6 @@ app.get('/api', function(req, res) {
 });
 
 // Use controllers
-app.use('/api/camels', camelsController);
 app.use('/api/players', playersController);
 app.use('/api/teams', teamsController);
 
