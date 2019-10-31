@@ -9,6 +9,7 @@ var history = require('connect-history-api-fallback');
 //Controllers
 var playersController = require('./controllers/players');
 var teamsController = require('./controllers/teams')
+var gameReportController = require('./controllers/gameReports')
 
 // Variables
 var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/shlFantasy';
@@ -42,6 +43,7 @@ app.get('/api', function(req, res) {
 // Use controllers
 app.use('/api/players', playersController);
 app.use('/api/teams', teamsController);
+app.use('/api/game-report', gameReportController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use('/api/*', function (req, res) {
