@@ -3,9 +3,8 @@ var Schema = mongoose.Schema;
 
 var gameReportSchema = new Schema({
     
-    homeTeam : { type : String },
-    awayTeam : { type : String },
-
+    gameInfo : { type : String },
+    
     //players : [ {type : mongoose.Schema.Types.ObjectId, ref:'players'} ],
     players : [String],
     goals : [Number],
