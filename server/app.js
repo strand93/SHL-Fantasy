@@ -16,6 +16,7 @@ var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/shlFantasy'
 var port = process.env.PORT || 3000;
 
 // Connect to MongoDB
+mongoose.set('useCreateIndex', true);
 mongoose.connect(mongoURI, { useNewUrlParser: true }, function(err) {
     if (err) {
         console.error(`Failed to connect to MongoDB with URI: ${mongoURI}`);
