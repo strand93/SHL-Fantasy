@@ -119,15 +119,32 @@ router.post('/', function (req, res, next) {
         });
 
     setTimeout(saveGameReport, 0);
-
-    /*setTimeout(function(){
-        res.send();
-    }, 0);*/
 });
 
 
+/****************
+ *****DELETE*****
+ ****************/
 
 
+// Delete the game report with the given ID
+router.delete('/:id', function(req, res, next) {
+    var id = req.params.id;
+    GameReport.findOneAndDelete({_id: id}, function(err, gameReport) {
+        if (err) { return next(err); }
+        if (gameReport === null) {
+            return res.status(404).json({'message': 'Player not found'});
+        }
+        res.json(gameReport);
+    });
+});
 
+//Delete all players
+router.delete('/', function(req, res, next){
+    GameReport.find().deleteMany().exec(function(err, gameReports) {
+        if (err) { return next(err); }
+        res.json(gameReports);
+    })
+});
 
 module.exports = router;
