@@ -68,8 +68,12 @@ router.post('/', function (req, res, next) {
 
     function saveGameReport(){
         gameReport = new GameReport({
-            gameInfo : gameInfo
-
+            gameInfo : gameInfo,
+            players : players,
+            goals : goals,
+            assits : assits,
+            plusMinus : plusMinus,
+            shotsOnGoal : shotsOnGoal
         });
 
         gameReport.save(function(err) {
