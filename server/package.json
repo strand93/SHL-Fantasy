@@ -28,7 +28,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mongoose": "^5.6.10",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "pdfjs-dist": "^2.2.228"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",
