@@ -1,210 +1,1056 @@
 {
 	"info": {
-		"_postman_id": "f1f0dc69-72ef-44ee-9bda-dfac8a907469",
-		"name": "server",
+		"_postman_id": "d535b0d2-6837-49fe-a88c-91e23712407c",
+		"name": "SHL-Fantasy-Test",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "GET /api",
-			"event": [
+			"name": "Game-Report",
+			"item": [
 				{
-					"listen": "prerequest",
-					"script": {
-						"id": "c67a5d47-3a70-45b0-8001-b37eb933382f",
-						"exec": [
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/api",
-					"host": [
-						"{{host}}"
+					"name": "POST /api/game-report",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d7c4cc9b-0fa7-4311-9235-51a2ce7d8d40",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"game-report_id\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
 					],
-					"path": [
-						"api"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST /api/camels",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"id": "927025af-5584-4888-a286-730662635095",
-						"exec": [
-							"// Save and read environment variables",
-							"",
-							"// 1) Create an environment in Postman:",
-							"// https://www.getpostman.com/docs/v6/postman/environments_and_globals/manage_environments",
-							"",
-							"// 2) Save reponse data in environment variable",
-							"var jsonData = pm.response.json();",
-							"var camelId = jsonData._id",
-							"pm.environment.set(\"camel_id\", camelId);",
-							"",
-							"// 3) Use variable in later requests via {{variable}}",
-							"// GET {{host}}/api/camels/{{camel_id}}",
-							"var getCamelId = pm.variables.get(\"camel_id\");",
-							"",
-							"// Test assertion examples",
-							"pm.test(\"Status code is 201\", function () {",
-							"    pm.response.to.have.status(201);",
-							"});",
-							"",
-							"pm.test(\"Body has correct color and position\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.color).to.eql(\"orange\");",
-							"    pm.expect(jsonData.position).to.eql(7);",
-							"});",
-							"",
-							"pm.test(\"Body has _id\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData._id).to.be.a('String');",
-							"});",
-							""
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
 						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
+						"url": {
+							"raw": "{{host}}/api/game-report",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"game-report"
+							]
+						}
 					},
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"color\": \"orange\",\n\t\"position\": 7\n}\n"
+					"response": []
 				},
-				"url": {
-					"raw": "{{host}}/api/camels",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"camels"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": ""
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "GET /api/camels",
-			"event": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "927025af-5584-4888-a286-730662635095",
-						"exec": [
-							""
+					"name": "GET /api/game-report",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3cbb30d0-0802-4216-a372-2519bf8df18e",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
 						],
-						"type": "text/javascript"
-					}
+						"url": {
+							"raw": "{{host}}/api/game-report",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"game-report"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /api/game-report/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "390c2ae0-4463-4016-9347-61de435ecddc",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/game-report/{{game-report_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"game-report",
+								"{{game-report_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /api/game-report",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "390c2ae0-4463-4016-9347-61de435ecddc",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/game-report",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"game-report"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/api/camels",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"camels"
-					],
-					"query": [
-						{
-							"key": "",
-							"value": ""
-						}
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "GET /api/camels/:id",
-			"event": [
+			"name": "Players and Teams",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "927025af-5584-4888-a286-730662635095",
-						"exec": [
-							""
+					"name": "POST /api/players 1 F",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b848addb-8291-4793-bbbd-9c6d73a3eb6f",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"player_id_1\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
 						],
-						"type": "text/javascript"
-					}
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Rhett Rakshani\",\n\t\"number\" : 9,\n\t\"team\" : \"Frölunda HC\",\n\t\"position\" : \"forward\",\n\t\"value\" : 10000000\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/players",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/players 2 F",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b848addb-8291-4793-bbbd-9c6d73a3eb6f",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"player_id_2\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Simon Önerud\",\n\t\"number\" : 11,\n\t\"team\" : \"HV71\",\n\t\"position\" : \"forward\",\n\t\"value\" : 9000000\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/players",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/players 3 D",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b848addb-8291-4793-bbbd-9c6d73a3eb6f",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"player_id_3\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Olle Alsing\",\n\t\"number\" : 38,\n\t\"team\" : \"Djurgården IF\",\n\t\"position\" : \"defense\",\n\t\"value\" : 7500000\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/players",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/players 4 D",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b848addb-8291-4793-bbbd-9c6d73a3eb6f",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"player_id_4\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Kodie Curran\",\n\t\"number\" : 4,\n\t\"team\" : \"Rögle BK\",\n\t\"position\" : \"defense\",\n\t\"value\" : 10000000\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/players",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/players 5 F",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b848addb-8291-4793-bbbd-9c6d73a3eb6f",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"player_id_5\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Jokaim Lindström\",\n\t\"number\" : 10,\n\t\"team\" : \"Skelleftea AIK\",\n\t\"position\" : \"forward\",\n\t\"value\" : 12500000\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/players",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST /api/players 6 G",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b848addb-8291-4793-bbbd-9c6d73a3eb6f",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"player_id_6\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Roman Will\",\n\t\"number\" : 3,\n\t\"team\" : \"Rögle BK\",\n\t\"position\" : \"goalkeeper\",\n\t\"value\" : 7500000\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/players",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /api/players/:id 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eba34f10-cd46-44b6-8f16-c47abe495385",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"number\" : 65\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/players/{{player_id_1}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"{{player_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/players",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ed10752-c2b9-402d-a0ee-963adde02aaa",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/players",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/players?player=Rhett Rakshani",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e818ba51-8afe-4967-8534-c1733092a4d2",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/players?player=Rhett Rakshani",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							],
+							"query": [
+								{
+									"key": "player",
+									"value": "Rhett Rakshani"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/players?team=Frölunda HC",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ed10752-c2b9-402d-a0ee-963adde02aaa",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/players?team=Frölunda HC",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							],
+							"query": [
+								{
+									"key": "team",
+									"value": "Frölunda HC"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/players?sort=+value",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8ed10752-c2b9-402d-a0ee-963adde02aaa",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/players?sort=+value",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "+value"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST api/teams",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b5846fb2-038d-4c58-bfed-dd96e2dc60d5",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"team_id\", jsonData._id);",
+									"",
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Hisingen Vikings\",\n\t\"leftForward\" : \"{{player_id_1}}\",\n\t\"rightForward\" : \"{{player_id_2}}\",\n\t\"leftDefense\" : \"{{player_id_3}}\",\n\t\"rightDefense\" : \"{{player_id_4}}\",\n\t\"center\" : \"{{player_id_5}}\",\n\t\"goalkeeper\" : \"{{player_id_6}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/teams",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET /api/teams/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b300b860-0670-4733-b5bd-1cab99c1fca1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/teams/{{team_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"teams",
+								"{{team_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET api/teams",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ee56f912-5305-4ac8-9fd6-73070d77f06c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/teams",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"teams"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PATCH /api/teams/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "eba34f10-cd46-44b6-8f16-c47abe495385",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\" : \"Gothenburg Raiders\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/teams/{{team_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"teams",
+								"{{team_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /api/players/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4303f0cd-0b7b-4fa0-9801-03de2f89067c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/players/{{player_id_1}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players",
+								"{{player_id_1}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /api/teams/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4303f0cd-0b7b-4fa0-9801-03de2f89067c",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/teams/{{team_id}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"teams",
+								"{{team_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /api/players",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "294d6e7e-834e-4e54-9fea-50528465f46f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/players",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"players"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE /api/teams",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "294d6e7e-834e-4e54-9fea-50528465f46f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Accept",
+								"type": "text",
+								"value": "application/json"
+							},
+							{
+								"key": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/teams",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"teams"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Accept",
-						"value": "application/json",
-						"type": "text"
-					}
-				],
-				"url": {
-					"raw": "{{host}}/api/camels/{{camel_id}}",
-					"host": [
-						"{{host}}"
-					],
-					"path": [
-						"api",
-						"camels",
-						"{{camel_id}}"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "7e800163-8a55-4e5e-9612-c424073c185b",
+				"id": "55bde201-652e-41f7-aa3d-e2ac547c2866",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -214,7 +1060,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "ee0c97da-ae53-475a-9016-45bcfd424105",
+				"id": "7c661c23-f7ed-49c2-a73b-74771ca31a20",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -224,10 +1070,11 @@
 	],
 	"variable": [
 		{
-			"id": "cd185905-a834-4211-8030-583d17702534",
+			"id": "0eb595cb-d854-416f-99ea-71ef73d85fd2",
 			"key": "host",
 			"value": "http://localhost:3000",
 			"type": "string"
 		}
-	]
+	],
+	"protocolProfileBehavior": {}
 }
