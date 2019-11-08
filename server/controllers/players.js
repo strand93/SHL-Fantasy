@@ -11,8 +11,9 @@ var mongoose = require('mongoose');
 router.get('/', function(req, res, next) {
     var team = req.query.team;
     var sort = req.query.sort;
+    var player = req.query.player;
 
-    if(team||sort){next(); return};
+    if(team||sort||player){next(); return};
 
     Player.find(function(err, players) {
         if (err) { return next(err); }
@@ -24,8 +25,9 @@ router.get('/', function(req, res, next) {
 router.get('/', function(req, res, next) {
     var team = req.query.team;
     var sort = req.query.sort;
+    var player = req.query.player;
     
-    if(sort){next(); return};
+    if(sort||player){next(); return};
 
     Player.find({'team' : team})
     .exec(function(err, players) {
@@ -41,6 +43,10 @@ router.get('/', function(req, res, next) {
 // Return a list of all players sorted by team
 router.get('/', function(req, res, next) {
     var sort = req.query.sort;
+    var player = req.query.player;
+
+    if(player){next(); return};
+
     var sortBy = sort.slice(1);
     if(sortBy == "value" && sort.charAt(0) == '-'){
         Player.find().sort({'value' : -1})
@@ -60,6 +66,16 @@ router.get('/', function(req, res, next) {
     }
 });
 
+// Return a player for a given name;
+router.get('/', function(req, res, next) {
+    var player = req.query.player;
+
+    Player.findOne({name : player}, function(err, player){
+        if (err) { return next(err); }
+        res.json(player);
+    });
+});
+
 // Return the player with the given ID
 router.get('/:id', function(req, res, next) {
     var id = req.params.id;
@@ -71,6 +87,7 @@ router.get('/:id', function(req, res, next) {
         res.json(player);
     });
 });
+
 
 /****************
  ******POST******
